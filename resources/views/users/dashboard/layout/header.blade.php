@@ -45,8 +45,25 @@
 							</li>
 							<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
 							                        <!-- Add the Register and Login buttons here -->
-                        <li class="nav-item"><a class="nav-link" href="{{ route('register') }}">Register</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+									@if(auth()->check())
+										<li class="nav-item">
+											<span class="nav-link">Welcome, {{ auth()->user()->name }}</span>
+										</li>
+										<li class="nav-item">
+											<a href={{ route('ShowMyOrders') }} ><span class="nav-link">orders </span></a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{{ route('logout') }}">Logout</a>
+										</li>
+									@else
+										<li class="nav-item">
+											<a class="nav-link" href="{{ route('register') }}">Register</a>
+										</li>
+										<li class="nav-item">
+											<a class="nav-link" href="{{ route('login') }}">Login</a>
+										</li>
+									@endif
+
                         <!-- End of Register and Login buttons -->
 						</ul>
 								@php

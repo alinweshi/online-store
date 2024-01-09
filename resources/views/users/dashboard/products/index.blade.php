@@ -42,7 +42,7 @@
 					<!-- single product -->
 					<div class="col-lg-3 col-md-6">
 						<div class="single-product">
-							<img class="img-fluid" src="{{ asset('assets/user-dashboard/img/product/p1.jpg') }}" alt="">
+							<a href='{{ route('product.show',$product->id) }}'><img class="img-fluid" src="{{ asset('assets/user-dashboard/img/product/p1.jpg') }}" alt=""></a>
 							<div class="product-details">
 								<h6>{{$product->name}}</h6>
 								<div class="price">

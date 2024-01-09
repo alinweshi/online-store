@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_colors', function (Blueprint $table) {
-            $table->bigIncrements("id");
-            // $table->foreignId('product_id')->constrained();
-
-            $table->unsignedBigInteger('product_id');
-            $table->foreign('product_id')->references('id')->on('products');
-            $table->string("color");
+        Schema::create('status', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('name');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_color');
+        Schema::dropIfExists('status');
     }
 };

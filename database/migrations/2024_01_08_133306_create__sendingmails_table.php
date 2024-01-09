@@ -13,11 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_images', function (Blueprint $table) {
-            $table->bigIncrements("id");
-            $table->string('image');
-            $table->unsignedBigInteger('product_color_size_id');
-            $table->foreign('product_color_size_id')->references('id')->on('Product_Color_Sizes');
+        Schema::create('_sendingmails', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('email');
             $table->timestamps();
         });
     }
@@ -29,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_images');
+        Schema::dropIfExists('_sendingmails');
     }
 };

@@ -69,6 +69,7 @@ td .update-quantity-form button:active {
                             <tr>
                                 <th scope="col">Product</th>
                                 <th scope="col">Price</th>
+                                <th scope="col">size</th>
                                 <th scope="col">Quantity</th>
                                 <th scope="col">remove</th>
                                 <th scope="col">Total</th>
@@ -84,6 +85,9 @@ td .update-quantity-form button:active {
                         </td>
                         <td>
                             <h5>{{ $item->price }}</h5>
+                        </td>
+                        <td>
+                            <h5>{{ $item->size }}</h5>
                         </td>
                             <td>
                                 <form action="{{ route('cart.update', $item->id) }}" method="POST" class="update-quantity-form">
@@ -188,7 +192,7 @@ td .update-quantity-form button:active {
                                 <td>
                                     <div class="checkout_btn_inner d-flex align-items-center">
                                         <a class="gray_btn" href="#">Continue Shopping</a>
-                                        <a class="primary-btn" href="#">Proceed to checkout</a>
+                                        <a class="primary-btn" href="{{ route('checkout.store') }}">Proceed to checkout</a>
                                     </div>
                                 </td>
                             </tr>

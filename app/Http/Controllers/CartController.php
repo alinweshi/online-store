@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PlaceOrderRequest;
+use App\Models\Order;
 use App\Models\Product;
 use Darryldecode\Cart\Facades\CartFacade as Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -28,6 +31,7 @@ class CartController extends Controller
             'id' => $product->id,
             'name' => $product->name,
             'price' => $product->price,
+            'size' => $product->size,
             'quantity' => $request->quantity,
             'attributes' => array(
                 'image' => $product->image,
@@ -84,4 +88,59 @@ class CartController extends Controller
 
         return redirect()->route('cart.list');
     }
+
+    public function checkoutStore()
+    {
+
+        // Fetch the cart items
+        $cartItems = Cart::getContent();
+
+        // Get the authenticated user
+        $user = Auth::user();
+        // foreach ($cartItems as $row) {
+        //     return $row->quantity;
+        // }
+
+        // Pass the cart items and user details to the view
+        return view('users.dashboard.orders.index', get_defined_vars());
+    }
+
+    public function PlaceOrderPost(PlaceOrderRequest $request)
+    {
+        // dd($request->all());
+        // Validate the incoming request
+
+        // Create a new Order instance
+        $order = Order::create([
+            'user_id' => Auth::user()->id,
+            'name' => $request->name,
+            'nickname' => $request->nickname,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'country_city' => $request->country_city,
+            'address' => $request->address,
+            'country' => $request->country,
+            'square' => $request->square,
+            'status' => "0",
+            "payment_method" => "1",
+            "payment_status" => "0",
+            "payment_id" => "0",
+
+            // Additional fields you might need to set
+        ]);
+
+        // Check if the order was created successfully
+        if ($order) {
+            // If successful, flash a success message
+            session()->flash('success', 'Order created successfully');
+        } else {
+            // If not successful, flash an error message
+            session()->flash('error', 'Order did not be created successfully');
+        }
+
+        // Redirect to the checkout page (adjust the route as needed)
+        return redirect()->route('checkout.store', get_defined_vars());
+
+    }
+
 }

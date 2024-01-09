@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+class RemoveIdFromStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('roles', function (Blueprint $table) {
-            $table->json('permissions')->change();
+        Schema::table('status', function (Blueprint $table) {
+            // Drop the id column
+            $table->dropColumn('id');
         });
     }
 
@@ -25,8 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('roles', function (Blueprint $table) {
-            $table->string('permissions')->change();
+        // If you need to reverse the changes, you can recreate the id column
+        Schema::table('status', function (Blueprint $table) {
+            $table->bigIncrements('id');
         });
     }
-};
+}
